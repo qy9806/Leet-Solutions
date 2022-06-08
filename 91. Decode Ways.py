@@ -17,3 +17,17 @@ class Solution:
         print(dp)
         return dp[-1]
             
+    def numDecodings(self, s: str) -> int:
+        dp=[0]*(len(s)+1)
+        if len(s)==0 or int(s[0])==0: return 0
+        dp[0]=1
+        dp[1]=1
+
+        for x in range(1,len(s)):
+            if int(s[x])>0:
+                dp[x+1]+=dp[x]
+            b=int(s[x-1:x+1])
+            if b<27 and b>9:
+                dp[x+1]+=dp[x-1]
+        
+        return dp[-1]   
